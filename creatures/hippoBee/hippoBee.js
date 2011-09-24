@@ -61,22 +61,22 @@ jj.createCreature('hippoBee', function (creature) {
     
     //Variable holding increments for horizontal movement 
     var xIncrement = 0;
-    
+    var ypos=0;
+    var xpos=0;
     //Function creating next step of cycloidal movement
     function nextStep(){
-        
         ypos = 30*Math.sin( counter * Math.PI / 180 );
         xpos = 30*Math.cos( counter * Math.PI / 180 )+xIncrement;
-       
+        
         counter = (counter + 10) % 360;
         xIncrement=(xIncrement+16)%world.width;
+       
         
         //Update creature position
         creature.position({
             top: ypos+jj.center().top - (height / 2) , 
             left: xpos
         });//+jj.center().left- (width / 2)
-           
     }
 
     setInterval(nextStep, 50);
@@ -86,7 +86,6 @@ jj.createCreature('hippoBee', function (creature) {
     var i = 1;
     //Animate hipobee image frame by frame
     function animateWings(){
-    
         //canvas.width = canvas.width;
         hipoBeeImg.src = path+"HippoBee"+i+".png";
         hipoBeeImg.onload = hipoBeeLoaded;
@@ -95,7 +94,7 @@ jj.createCreature('hippoBee', function (creature) {
     
     }
 
-    setInterval(animateWings, 100);
+    setInterval(animateWings, 200);
   
 });
 

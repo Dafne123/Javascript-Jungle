@@ -34,17 +34,16 @@ jj.createCreature('hippoBee', function (creature) {
      * These are the names of the frames that will be used to animate the bee
      * @param maxFrm int the max number of frames
      **/
-    function reloadImgs(maxFrm){
+    function loadImgs(maxFrm){
         //Set the length to 1 to make sure the array has at least 1 frame
         imgSequence.length = 1;
         for (j=1;j<=maxFrm;j++){
             imgSequence[j-1] = "HippoBee"+(j)+".png";
-            console.log("HippoBee"+(j)+".png");
         }
         // The next line will pass the array to the bee instance 
         hippoBee.loadImgSequence(imgSequence);
         //This loads the first image on the bee canvas
-        //hippoBee.loadImg(); This is useless 
+        //hippoBee.initImg(); This is useless 
         
     }
     
@@ -233,7 +232,7 @@ jj.createCreature('hippoBee', function (creature) {
         /* 
          * This loads the first image to be drawn on the canvas.
          */
-        this.loadImg = function(){
+        this.initImg = function(){
             this.hippoImg.src = this.path + this.loadedImgSet[0];
         }
         /* 
@@ -436,7 +435,7 @@ jj.createCreature('hippoBee', function (creature) {
     //The array used to contain the set of frames
     var imgSequence = [];
     //Load the initial 4 images
-    reloadImgs(3);
+    loadImgs(3);
     //Draw the canvas
     hippoBee.hippoImg.addEventListener('load', function(){
         hippoBee.drawImg(hippoBee.hippoImg)
@@ -480,10 +479,10 @@ jj.createCreature('hippoBee', function (creature) {
     creature.bind("fly",function(){
         
         //The initial state of flag is set to isFLying
-        // So reloadImgs() will be invoked only the first time fly() is called
+        // So loadImgs() will be invoked only the first time fly() is called
         if(flag==animFlags.isFlying)
         {
-            reloadImgs(3);
+            loadImgs(3);
             flag=animFlags.temp; //set flag to "temporary" state, i.e. the creature keeps flying 
         }
         hippoBee.fly();
@@ -509,12 +508,12 @@ jj.createCreature('hippoBee', function (creature) {
         if(flag==animFlags.isEating)
         {
             flag=animFlags.isFlying;   
-            reloadImgs(5);
+            loadImgs(5);
             
         }else if(flag==animFlags.isSleeping)
         {
             flag=animFlags.isFlying;   
-            reloadImgs(1);
+            loadImgs(1);
         }
         
         if(hippoBee.getHealth()<100){   
